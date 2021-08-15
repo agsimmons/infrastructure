@@ -25,39 +25,39 @@
     mode: '0644'
   notify: Restart openssh-server
 
-# - name: Remove existing host keys
-#   become: yes
-#   file:
-#     path: '/etc/ssh/{{ item }}'
-#     state: absent
-#   with_items:
-#     - ssh_host_dsa_key
-#     - ssh_host_dsa_key.pub
-#     - ssh_host_ecdsa_key
-#     - ssh_host_ecdsa_key.pub
-#     - ssh_host_ed25519_key
-#     - ssh_host_ed25519_key.pub
-#     - ssh_host_rsa_key
-#     - ssh_host_rsa_key.pub
-#   when: openssh_install.changed
-#   notify: Restart openssh-server
+- name: Remove existing host keys
+  become: yes
+  file:
+    path: '/etc/ssh/{{ item }}'
+    state: absent
+  with_items:
+    - ssh_host_dsa_key
+    - ssh_host_dsa_key.pub
+    - ssh_host_ecdsa_key
+    - ssh_host_ecdsa_key.pub
+    - ssh_host_ed25519_key
+    - ssh_host_ed25519_key.pub
+    - ssh_host_rsa_key
+    - ssh_host_rsa_key.pub
+  when: openssh_install.changed
+  notify: Restart openssh-server
 
-# - name: Generate RSA host key
-#   become: yes
-#   openssh_keypair:
-#     path: /etc/ssh/ssh_host_rsa_key
-#     type: rsa
-#     size: 4096
-#   when: openssh_install.changed
-#   notify: Restart openssh-server
+- name: Generate RSA host key
+  become: yes
+  openssh_keypair:
+    path: /etc/ssh/ssh_host_rsa_key
+    type: rsa
+    size: 4096
+  when: openssh_install.changed
+  notify: Restart openssh-server
 
-# - name: Generate ed25519 host key
-#   become: yes
-#   openssh_keypair:
-#     path: /etc/ssh/ssh_host_ed25519_key
-#     type: ed25519
-#   when: openssh_install.changed
-#   notify: Restart openssh-server
+- name: Generate ed25519 host key
+  become: yes
+  openssh_keypair:
+    path: /etc/ssh/ssh_host_ed25519_key
+    type: ed25519
+  when: openssh_install.changed
+  notify: Restart openssh-server
 
 # - name: Check for small Diffie-Hellman moduli
 #   shell: awk '$5 >= 3071' /etc/ssh/moduli
