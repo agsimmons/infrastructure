@@ -15,15 +15,15 @@
     mode: '0644'
   notify: Restart openssh-server
 
-# - name: Copy ssh-audit_hardening.conf
-#   become: yes
-#   copy:
-#     src: ssh-audit_hardening.conf
-#     dest: /etc/ssh/sshd_config.d/ssh-audit_hardening.conf
-#     owner: root
-#     group: root
-#     mode: '0644'
-#   notify: Restart openssh-server
+- name: Copy ssh-audit_hardening.conf
+  become: yes
+  copy:
+    src: ssh-audit_hardening.conf
+    dest: /etc/ssh/sshd_config.d/ssh-audit_hardening.conf
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Restart openssh-server
 
 # - name: Remove existing host keys
 #   become: yes
