@@ -1,6 +1,8 @@
 - hosts: bumbo
   roles:
   - hostname
+  - netplan
+  - mdns
   - users
   - sudo
   - openssh

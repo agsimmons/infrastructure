@@ -2,6 +2,8 @@
   connection: local
   roles:
     - hostname
+    - netplan
+    - mdns
     - users
     - sudo
     - openssh
