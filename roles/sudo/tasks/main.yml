@@ -1,4 +1,5 @@
-- name: Copy sudoers
+- name: Copy sudoers file
+  become: yes
   copy:
     src: sudoers
     dest: /etc/sudoers
