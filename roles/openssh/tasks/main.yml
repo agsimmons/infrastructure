@@ -1,3 +1,28 @@
+- name: Install openssh-server
+  become: yes
+  apt:
+    name: openssh-server
+    state: present
+  register: openssh_install
+
+- name: Remove existing host keys
+  become: yes
+  file:
+    path: /etc/ssh/ssh_host_*
+    state: absent
+  when: openssh_install.changed
+
+- name: Generate host keys
+  become: yes
+  openssh_keypair:
+    path: /etc/ssh/ssh_host_rsa_key
+    type: rsa
+    size: 4096
+    # state: present
+    # owner: root
+    # group: root
+  when: openssh_install.changed
+
 - name: Copy sshd_config
   become: yes
   copy:
