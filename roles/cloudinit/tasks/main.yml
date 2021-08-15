@@ -1,0 +1,18 @@
+- name: Remove cloud-init
+  become: yes
+  apt:
+    name: cloud-init
+    state: absent
+    purge: yes
+
+- name: Remove /etc/cloud
+  become: yes
+  file:
+    path: /etc/cloud
+    state: absent
+
+- name: Remove /var/lib/cloud
+  become: yes
+  file:
+    path: /var/lib/cloud
+    state: absent
