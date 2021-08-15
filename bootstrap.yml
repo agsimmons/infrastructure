@@ -2,6 +2,7 @@
   connection: local
   roles:
     - hostname
+    - timezone
     - netplan
     - mdns
     - users
