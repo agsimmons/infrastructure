@@ -5,15 +5,15 @@
     state: present
   register: openssh_install
 
-- name: Copy sshd_config
-  become: yes
-  copy:
-    src: sshd_config
-    dest: /etc/ssh/sshd_config
-    owner: root
-    group: root
-    mode: '0644'
-  notify: Restart openssh-server
+# - name: Copy sshd_config
+#   become: yes
+#   copy:
+#     src: sshd_config
+#     dest: /etc/ssh/sshd_config
+#     owner: root
+#     group: root
+#     mode: '0644'
+#   notify: Restart openssh-server
 
 # - name: Copy ssh-audit_hardening.conf
 #   become: yes
@@ -59,11 +59,11 @@
 #   when: openssh_install.changed
 #   notify: Restart openssh-server
 
-- name: Check for small Diffie-Hellman moduli
-  shell: awk '$5 >= 3071' /etc/ssh/moduli
-  register: openssh_moduli
-  changed_when: false
-  check_mode: false
+# - name: Check for small Diffie-Hellman moduli
+#   shell: awk '$5 >= 3071' /etc/ssh/moduli
+#   register: openssh_moduli
+#   changed_when: false
+#   check_mode: false
 
 # TODO
 # - name: Remove small Diffie-Hellman moduli
