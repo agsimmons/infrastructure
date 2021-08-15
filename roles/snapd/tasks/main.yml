@@ -5,6 +5,12 @@
     state: absent
     purge: yes
 
+- name: Hold snapd
+  become: yes
+  dpkg_selections:
+    name: snapd
+    selection: hold
+
 - name: Remove snap cache
   become: yes
   file:
