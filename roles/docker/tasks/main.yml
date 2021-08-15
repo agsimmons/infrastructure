@@ -27,3 +27,6 @@
     create_home: no
     password_lock: yes
     system: yes
+
+- name: Install mosquitto
+  include: mosquitto.yml
