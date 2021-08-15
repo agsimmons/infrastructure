@@ -1,0 +1,50 @@
+- name: Create andrew user
+  become: yes
+  user:
+    name: andrew
+    state: present
+    create_home: yes
+
+- name: Create .ssh directory for user andrew
+  become: yes
+  file:
+    path: /home/andrew/.ssh
+    state: directory
+    owner: andrew
+    group: andrew
+    mode: '0700'
+
+- name: Copy authorized_keys for user andrew
+  become: yes
+  copy:
+    src: andrew_authorized_keys
+    dest: /home/andrew/.ssh/authorized_keys
+    owner: andrew
+    group: andrew
+    mode: '0600'
+
+- name: Create ansible user
+  become: yes
+  user:
+    name: ansible
+    state: present
+    create_home: yes
+    password_lock: yes
+
+- name: Create .ssh directory for user ansibl
+  become: yes
+  file:
+    path: /home/ansible/.ssh
+    state: directory
+    owner: ansible
+    group: ansible
+    mode: '0600'
+
+- name: Copy authorized_keys for user ansible
+  become: yes
+  copy:
+    src: ansible_authorized_keys
+    dest: /home/ansible/.ssh/authorized_keys
+    owner: ansible
+    group: ansible
+    mode: '0600'
