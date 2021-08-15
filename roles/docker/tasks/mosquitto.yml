@@ -1,0 +1,38 @@
+- name: Create mosquitto directory
+  become: yes
+  file:
+    path: /opt/mosquitto
+    state: directory
+    owner: "{{ docker_user.name }}"
+    mode: "{{ docker_compose_directory_mask }}"
+
+- name: Install mosquitto compose file
+  become: true
+  template:
+    src: files/mosquitto/docker-compose.yml
+    dest: /opt/mosquitto/docker-compose.yml
+    mode: "{{ docker_compose_file_mask }}"
+    owner: "{{ docker_user.name }}"
+    validate: docker-compose -f %s config
+  register: compose_file
+
+- name: Copy mosquitto config file
+  become: yes
+  copy:
+    src: files/mosquitto/mosquitto.conf
+    dest: /opt/mosquitto/config/mosquitto.conf
+  register: config_file
+
+- name: Copy mosquitto password file
+  become: yes
+  copy:
+    src: files/mosquitto/password_file
+    dest: /opt/mosquitto/config/password_file
+  register: password_file
+
+- name: Restart mosquitto
+  become: yes
+  shell:
+    chdir: /opt/mosquitto
+    cmd: "{{ docker_update_command }}"
+  when: (compose_file.changed) or (config_file.changed) or (password_file.changed)
