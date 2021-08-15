@@ -1,0 +1,8 @@
+- hosts: bumbo
+  roles:
+  - users
+  - sudo
+  - openssh
+  - cloudinit
+  - snapd
+  - python
