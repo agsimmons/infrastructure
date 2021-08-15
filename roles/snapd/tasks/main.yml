@@ -1,0 +1,12 @@
+- name: Uninstall snapd
+  become: yes
+  apt:
+    name: snapd
+    state: absent
+    purge: yes
+
+- name: Remove snap cache
+  become: yes
+  file:
+    path: /var/cache/snapd
+    state: absent
