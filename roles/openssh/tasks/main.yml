@@ -59,11 +59,11 @@
   when: openssh_install.changed
   notify: Restart openssh-server
 
-# - name: Check for small Diffie-Hellman moduli
-#   shell: awk '$5 >= 3071' /etc/ssh/moduli
-#   register: openssh_moduli
-#   changed_when: false
-#   check_mode: false
+- name: Check for small Diffie-Hellman moduli
+  shell: awk '$5 >= 3071' /etc/ssh/moduli
+  register: openssh_moduli
+  changed_when: false
+  check_mode: false
 
 # TODO
 # - name: Remove small Diffie-Hellman moduli
