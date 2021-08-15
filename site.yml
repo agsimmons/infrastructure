@@ -10,4 +10,4 @@
   - cloudinit
   - snapd
   - python
-  - mdns
+  - docker

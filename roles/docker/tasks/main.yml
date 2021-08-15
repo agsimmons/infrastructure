@@ -1,0 +1,28 @@
+- name: Install Docker
+  become: yes
+  apt:
+    name: docker.io
+    state: present
+- name: Install docker-compose
+  become: yes
+  apt:
+    name: docker-compose
+    state: present
+
+- name: Start and Enable docker.service
+  become: yes
+  systemd:
+    name: docker.service
+    state: started
+    enabled: True
+
+- name: Create user {{ docker_user.name }}
+  become: yes
+  user:
+    name: "{{ docker_user.name }}"
+    uid: "{{ docker_user.id }}"
+    state: present
+    shell: /usr/sbin/nologin
+    create_home: no
+    password_lock: yes
+    system: yes
