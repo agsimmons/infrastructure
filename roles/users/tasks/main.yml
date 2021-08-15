@@ -59,7 +59,7 @@
     dest: /home/andrew/.ssh/authorized_keys
     owner: andrew
     group: andrew
-    mode: '0600'
+    mode: '0644'
 
 - name: Create ansible user
   become: yes
@@ -85,4 +85,4 @@
     dest: /home/ansible/.ssh/authorized_keys
     owner: ansible
     group: ansible
-    mode: '0600'
+    mode: '0644'
