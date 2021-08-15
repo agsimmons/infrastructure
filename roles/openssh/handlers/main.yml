@@ -1,0 +1,5 @@
+- name: Restart openssh-server
+  become: yes
+  systemd:
+    name: ssh.service
+    state: restarted

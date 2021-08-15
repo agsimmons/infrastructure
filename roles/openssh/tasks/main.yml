@@ -5,6 +5,26 @@
     state: present
   register: openssh_install
 
+- name: Copy sshd_config
+  become: yes
+  copy:
+    src: sshd_config
+    dest: /etc/ssh/sshd_config
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Restart openssh-server
+
+- name: Copy ssh-audit_hardening.conf
+  become: yes
+  copy:
+    src: ssh-audit_hardening.conf
+    dest: /etc/ssh/sshd_config.d/ssh-audit_hardening.conf
+    owner: root
+    group: root
+    mode: '0644'
+  notify: Restart openssh-server
+
 - name: Remove existing host keys
   become: yes
   file:
@@ -20,23 +40,30 @@
     - ssh_host_rsa_key
     - ssh_host_rsa_key.pub
   when: openssh_install.changed
+  notify: Restart openssh-server
 
-- name: Generate host keys
+- name: Generate RSA host key
   become: yes
   openssh_keypair:
     path: /etc/ssh/ssh_host_rsa_key
     type: rsa
     size: 4096
-    # state: present
-    # owner: root
-    # group: root
   when: openssh_install.changed
+  notify: Restart openssh-server
 
-- name: Copy sshd_config
+- name: Generate ed25519 host key
   become: yes
-  copy:
-    src: sshd_config
-    dest: /etc/ssh/sshd_config
-    owner: root
-    group: root
-    mode: '0644'
+  openssh_keypair:
+    path: /etc/ssh/ssh_host_ed25519_key
+    type: ed25519
+  when: openssh_install.changed
+  notify: Restart openssh-server
+
+- name: Check for small Diffie-Hellman moduli
+  shell: awk '$5 >= 3071' /etc/ssh/moduli
+  register: openssh_moduli
+  changed_when: false
+  check_mode: false
+
+# TODO
+# - name: Remove small Diffie-Hellman moduli
