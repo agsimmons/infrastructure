@@ -28,5 +28,8 @@
     password_lock: yes
     system: yes
 
+- name: Install traefik
+  include: docker-traefik.yml
+
 - name: Install mosquitto
   include: mosquitto.yml
