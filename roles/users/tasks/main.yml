@@ -69,7 +69,7 @@
     create_home: yes
     password_lock: yes
 
-- name: Create .ssh directory for user ansibl
+- name: Create .ssh directory for user ansible
   become: yes
   file:
     path: /home/ansible/.ssh
