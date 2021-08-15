@@ -1,0 +1,13 @@
+- name: Install avahi-daemon
+  become: yes
+  apt:
+    name: avahi-daemon
+    state: present
+
+- name: Enable avahi-daemon on IPv4 and IPv6
+  become: yes
+  replace:
+    path: /etc/nsswitch.conf
+    regexp: "mdns4_minimal"
+    replace: "mdns_minimal"    
+  notify: Restart avahi-daemon

@@ -6,3 +6,4 @@
   - cloudinit
   - snapd
   - python
+  - mdns
