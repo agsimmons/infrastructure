@@ -34,6 +34,7 @@
   user:
     name: andrew
     state: present
+    shell: /usr/bin/bash
     create_home: yes
 
 - name: Make home directory of user andrew private
@@ -66,6 +67,7 @@
   user:
     name: ansible
     state: present
+    shell: /usr/bin/bash
     create_home: yes
     password_lock: yes
 
