@@ -1,0 +1,24 @@
+- name: Create nginx-proxy-manager directory
+  become: yes
+  file:
+    path: /opt/nginx-proxy-manager
+    state: directory
+    owner: "{{ docker_user.name }}"
+    mode: "{{ docker_compose_directory_mask }}"
+
+- name: Install nginx-proxy-manager compose file
+  become: true
+  template:
+    src: files/nginx-proxy-manager/docker-compose.yml
+    dest: /opt/nginx-proxy-manager/docker-compose.yml
+    mode: "{{ docker_compose_file_mask }}"
+    owner: "{{ docker_user.name }}"
+    validate: docker-compose -f %s config
+  register: compose_file
+
+- name: Restart nginx-proxy-manager
+  become: yes
+  shell:
+    chdir: /opt/nginx-proxy-manager
+    cmd: "{{ docker_update_command }}"
+  when: compose_file.changed

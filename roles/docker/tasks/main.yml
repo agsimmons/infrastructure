@@ -28,8 +28,8 @@
     password_lock: yes
     system: yes
 
-- name: Install traefik
-  include: docker-traefik.yml
+- name: Install Nginx Proxy Manager
+  include: nginx-proxy-manager.yml
 
 - name: Install mosquitto
   include: mosquitto.yml
