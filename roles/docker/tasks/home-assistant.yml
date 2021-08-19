@@ -16,9 +16,16 @@
     validate: docker-compose -f %s config
   register: compose_file
 
+- name: Copy home-assistant configuration.yaml
+  become: yes
+  template:
+    src: files/home-assistant/configuration.yaml
+    dest: /opt/home-assistant/config/configuration.yaml
+  register: config_file
+
 - name: Restart home-assistant
   become: yes
   shell:
     chdir: /opt/home-assistant
     cmd: "{{ docker_update_command }}"
-  when: compose_file.changed
+  when: (compose_file.changed) or (config_file.changed)
