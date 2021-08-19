@@ -31,8 +31,8 @@
 - name: Install Nginx Proxy Manager
   include: nginx-proxy-manager.yml
 
-- name: Install Home Assistant
-  include: home-assistant.yml
-
 - name: Install mosquitto
   include: mosquitto.yml
+
+- name: Install Home Assistant
+  include: home-assistant.yml
