@@ -31,6 +31,9 @@
 - name: Install Nginx Proxy Manager
   include: nginx-proxy-manager.yml
 
+- name: Install syncthing
+  include: syncthing.yml
+
 - name: Install mosquitto
   include: mosquitto.yml
 

@@ -1,0 +1,22 @@
+version: "3.5"
+services:
+  syncthing:
+    image: linuxserver/syncthing:latest
+    container_name: syncthing
+    restart: unless-stopped
+    environment:
+      - PUID={{ docker_user.id }}
+      - GUID={{ docker_user.id }}
+      - TZ=America/New_York
+    volumes:
+      - /opt/syncthing/config:/config
+      - /opt/syncthing/data:/data
+    ports:
+      # - 8384:8384
+      - 22000:22000/tcp
+      - 22000:22000/udp
+      - 21027:21027/udp
+networks:
+  default:
+    external:
+      name: nginx-proxy-manager
