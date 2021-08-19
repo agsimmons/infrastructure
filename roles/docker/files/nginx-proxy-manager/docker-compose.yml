@@ -17,6 +17,9 @@ services:
     volumes:
       - /opt/nginx-proxy-manager/data:/data
       - /opt/nginx-proxy-manager/letsencrypt:/etc/letsencrypt
+    networks:
+      default:
+        ipv4_address: '{{ nginx_proxy_manager_ip }}'
   db:
     image: "jc21/mariadb-aria:latest"
     restart: unless-stopped
@@ -29,5 +32,8 @@ services:
       - /opt/nginx-proxy-manager/data/mysql:/var/lib/mysql
 networks:
   default:
-    external:
-      name: nginx-proxy-manager
+    name: nginx-proxy-manager
+    external: true
+    ipam:
+      config:
+        - subnet: '{{ nginx_proxy_manager_subnet }}'
