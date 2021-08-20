@@ -10,5 +10,6 @@ docker_compose_directory_mask: '0775'
 
 docker_update_command: docker-compose pull && docker-compose down --remove-orphans && docker-compose rm && docker-compose up -d
 
-nginx_proxy_manager_ip: '172.18.0.2'
 nginx_proxy_manager_subnet: '172.18.0.0/16'
+nginx_proxy_manager_ip_range: '172.18.0.0/17'
+nginx_proxy_manager_ip: '172.18.128.1'

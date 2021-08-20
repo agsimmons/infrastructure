@@ -34,6 +34,3 @@ networks:
   default:
     name: nginx-proxy-manager
     external: true
-    ipam:
-      config:
-        - subnet: '{{ nginx_proxy_manager_subnet }}'

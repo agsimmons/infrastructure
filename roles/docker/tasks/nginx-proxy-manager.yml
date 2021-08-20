@@ -1,3 +1,11 @@
+- name: Create nginx-proxy-manager network
+  become: yes
+  docker_network:
+    name: nginx-proxy-manager
+    ipam_config:
+      - subnet: '{{ nginx_proxy_manager_subnet }}'
+        iprange: '{{ nginx_proxy_manager_ip_range }}'
+
 - name: Create nginx-proxy-manager directory
   become: yes
   file:
