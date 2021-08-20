@@ -1,0 +1,68 @@
+- name: Create kodi user
+  become: yes
+  user:
+    name: kodi
+    state: present
+    create_home: yes
+    password_lock: yes
+    groups:
+      - kodi
+      # - audio
+      # - optical
+      # - video
+      # - network
+      # - power
+      # - tty
+      # - disk
+      # - storage
+      - render
+
+- name: Add Kodi PPA
+  become: yes
+  apt_repository:
+    repo: ppa:team-xbmc/ppa
+  register: kodi_ppa
+
+- name: Update apt cache
+  become: yes
+  apt:
+    update_cache: yes
+  when: kodi_ppa.changed
+
+- name: Install Kodi
+  become: yes
+  apt:
+    name: kodi
+    state: present
+
+- name: Install xorg
+  become: yes
+  apt:
+    name: xorg
+    state: present
+
+- name: Copy kodi-x11.service
+  become: yes
+  copy:
+    src: kodi-x11.service
+    dest: /usr/lib/systemd/system/kodi-x11.service
+  register: kodi_x11_service
+
+- name: Copy 99-kodi.rules
+  become: yes
+  copy:
+    src: 99-kodi.rules
+    dest: /usr/lib/udev/rules.d/99-kodi.rules
+
+- name: Restart kodi-x11.service
+  become: yes
+  systemd:
+    name: kodi-x11.service
+    state: restarted
+  when: kodi_x11_service.changed
+
+- name: Start kodi-x11.service
+  become: yes
+  systemd:
+    name: kodi-x11.service
+    state: started
