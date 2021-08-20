@@ -1,13 +1,14 @@
 - hosts: bumbo
   roles:
-  - hostname
-  - timezone
-  - netplan
-  - mdns
-  - users
-  - sudo
-  - openssh
-  - cloudinit
-  - snapd
-  - python
-  - docker
+  # - hostname
+  # - timezone
+  # - netplan
+  # - mdns
+  # - users
+  # - sudo
+  # - openssh
+  # - cloudinit
+  # - snapd
+  # - python
+  # - docker
+  - kodi
