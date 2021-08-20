@@ -6,6 +6,14 @@
     owner: "{{ docker_user.name }}"
     mode: "{{ docker_compose_directory_mask }}"
 
+- name: Create mosquitto config directory
+  become: yes
+  file:
+    path: /opt/mosquitto/config
+    state: directory
+    owner: "{{ docker_user.name }}"
+    mode: "{{ docker_compose_directory_mask }}"
+
 - name: Install mosquitto compose file
   become: true
   template:
