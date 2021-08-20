@@ -6,11 +6,16 @@
     owner: root
     group: root
     mode: '0644'
-  notify: Apply Netplan configuration
+  register: config_file
 
 - name: Remove installer Netplan config
   become: yes
   file:
     path: /etc/netplan/00-installer-config.yaml
     state: absent
-  notify: Apply Netplan configuration
+  register: installer_config_file
+
+- name: Apply Netplan configuration
+  become: yes
+  command: netplan apply
+  when: (config_file.changed) or (installer_config_file.changed)
