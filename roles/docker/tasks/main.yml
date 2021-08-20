@@ -39,3 +39,6 @@
 
 - name: Install Home Assistant
   include: home-assistant.yml
+
+- name: Install Unifi Controller
+  include: unifi-controller.yml
