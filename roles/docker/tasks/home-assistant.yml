@@ -6,6 +6,14 @@
     owner: "{{ docker_user.name }}"
     mode: "{{ docker_compose_directory_mask }}"
 
+- name: Create home-assistant config directory
+  become: yes
+  file:
+    path: /opt/home-assistant/config
+    state: directory
+    owner: "{{ docker_user.name }}"
+    mode: "{{ docker_compose_directory_mask }}"
+
 - name: Install home-assistant compose file
   become: true
   template:
