@@ -5,6 +5,11 @@
     state: present
     create_home: yes
     password_lock: yes
+
+- name: Set groups for kodi user
+  become: yes
+  user:
+    name: kodi
     groups:
       - kodi
       # - audio
