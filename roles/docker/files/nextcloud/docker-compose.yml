@@ -1,0 +1,35 @@
+version: "3.5"
+services:
+  app:
+    image: nextcloud:22
+    container_name: nextcloud
+    restart: unless-stopped
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_DB: nextcloud
+      POSTGRES_USER: nextcloud
+      POSTGRES_PASSWORD: nextcloud
+    volumes:
+      - /opt/nextcloud/app_data:/var/www/html
+    networks:
+      - default
+      - nextcloud
+      
+  db:
+    image: postgres:12-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: nextcloud
+      POSTGRES_USER: nextcloud
+      POSTGRES_PASSWORD: nextcloud
+    volumes:
+      - /opt/nextcloud/db_data:/var/lib/postgresql/data
+    networks:
+      - nextcloud
+networks:
+  default:
+    name: nginx-proxy-manager
+    external: true
+  nextcloud:
+    name: nextcloud
+  

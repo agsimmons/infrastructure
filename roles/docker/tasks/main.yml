@@ -42,3 +42,6 @@
 
 - name: Install Unifi Controller
   include: unifi-controller.yml
+
+- name: Install Nextcloud
+  include: nextcloud.yml
