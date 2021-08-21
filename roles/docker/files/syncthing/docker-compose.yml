@@ -18,5 +18,5 @@ services:
       - 21027:21027/udp
 networks:
   default:
-    external:
-      name: nginx-proxy-manager
+    name: nginx-proxy-manager
+    external: true

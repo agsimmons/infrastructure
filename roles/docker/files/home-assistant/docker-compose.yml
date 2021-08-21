@@ -8,8 +8,5 @@ services:
       - /opt/home-assistant/config:/config
 networks:
   default:
-    external:
-      name: nginx-proxy-manager
-
-# TODO: Copy configuration.yaml
-# This should contain the required configuration to allow for reverse proxy
+    name: nginx-proxy-manager
+    external: true
