@@ -66,8 +66,9 @@
     state: restarted
   when: kodi_x11_service.changed
 
-- name: Start kodi-x11.service
+- name: Start and enable kodi-x11.service
   become: yes
   systemd:
     name: kodi-x11.service
     state: started
+    enabled: yes
