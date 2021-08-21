@@ -40,11 +40,18 @@
     name: kodi
     state: present
 
-- name: Install xorg
+- name: Install xserver-xorg
   become: yes
   apt:
-    name: xorg
+    name: xserver-xorg
     state: present
+
+- name: Install xinit
+  become: yes
+  apt:
+    name: xinit
+    state: present
+    install_recommends: no
 
 - name: Copy kodi-x11.service
   become: yes
