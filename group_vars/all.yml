@@ -1,4 +1,4 @@
-hostname: virtualbumbo
+hostname: bumbo
 timezone: America/New_York
 
 docker_user:
