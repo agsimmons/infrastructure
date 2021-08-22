@@ -1,2 +1,2 @@
 [bumbo]
-192.168.122.43 ansible_user=ansible
+bumbo.local ansible_user=ansible
