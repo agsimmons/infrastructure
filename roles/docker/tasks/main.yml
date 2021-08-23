@@ -17,11 +17,18 @@
     state: started
     enabled: True
 
+- name: Create group {{ docker_user.name }}
+  become: yes
+  group:
+    name: "{{ docker_user.name }}"
+    gid: "{{ docker_user.gid }}"
+
 - name: Create user {{ docker_user.name }}
   become: yes
   user:
     name: "{{ docker_user.name }}"
     uid: "{{ docker_user.id }}"
+    group: "{{ docker_user.name }}"
     state: present
     shell: /usr/sbin/nologin
     create_home: no

@@ -6,7 +6,7 @@ services:
     restart: unless-stopped
     environment:
       - PUID={{ docker_user.id }}
-      - GUID={{ docker_user.id }}
+      - GUID={{ docker_user.gid }}
       - TZ=America/New_York
     volumes:
       - /opt/syncthing/config:/config
