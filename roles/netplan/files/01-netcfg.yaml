@@ -6,3 +6,9 @@ network:
       dhcp4: yes
       dhcp6: no
       ipv6-privacy: yes
+    # This second interface configuration is here because sometimes, for an
+    # unknown reason, the interface changes names between enp1s0 and enp2s0
+    enp2s0:
+      dhcp4: yes
+      dhcp6: no
+      ipv6-privacy: yes
