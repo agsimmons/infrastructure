@@ -4,6 +4,7 @@
     path: /opt/unifi-controller
     state: directory
     owner: "{{ docker_user.name }}"
+    group: "{{ docker_user.name }}"
     mode: "{{ docker_compose_directory_mask }}"
 
 - name: Install unifi-controller compose file
@@ -13,6 +14,7 @@
     dest: /opt/unifi-controller/docker-compose.yml
     mode: "{{ docker_compose_file_mask }}"
     owner: "{{ docker_user.name }}"
+    group: "{{ docker_user.name }}"
     validate: docker-compose -f %s config
   register: compose_file
 

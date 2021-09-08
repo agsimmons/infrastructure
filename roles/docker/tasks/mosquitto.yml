@@ -4,6 +4,7 @@
     path: /opt/mosquitto
     state: directory
     owner: "{{ docker_user.name }}"
+    group: "{{ docker_user.name }}"
     mode: "{{ docker_compose_directory_mask }}"
 
 - name: Create mosquitto config directory
@@ -12,6 +13,7 @@
     path: /opt/mosquitto/config
     state: directory
     owner: "{{ docker_user.name }}"
+    group: "{{ docker_user.name }}"
     mode: "{{ docker_compose_directory_mask }}"
 
 - name: Install mosquitto compose file
