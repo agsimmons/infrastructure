@@ -52,3 +52,6 @@
 
 - name: Install Nextcloud
   include: nextcloud.yml
+
+- name: Install Gitea
+  include: gitea.yml
