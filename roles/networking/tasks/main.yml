@@ -1,0 +1,53 @@
+- name: Uninstall netplan.io
+  become: yes
+  apt:
+    name: netplan.io
+    state: absent
+    purge: yes
+
+- name: Remove /etc/netplan
+  become: yes
+  file:
+    path: /etc/netplan
+    state: absent
+
+- name: Remove /usr/share/netplan
+  become: yes
+  file:
+    path: /usr/share/netplan
+    state: absent
+
+- name: Copy ethernet config
+  become: yes
+  copy:
+    src: 10-enp1s0.network
+    dest: /etc/systemd/network/10-enp1s0.network
+    owner: root
+    group: root
+    mode: '0644'
+  register: config_file
+
+- name: Copy duplicate ethernet config
+  become: yes
+  copy:
+    src: 20-enp2s0.network
+    dest: /etc/systemd/network/20-enp2s0.network
+    owner: root
+    group: root
+    mode: '0644'
+  register: config_file_copy
+
+- name: Start and enable systemd-networkd.service
+  become: yes
+  systemd:
+    name: systemd-networkd.service
+    state: started
+    enabled: yes
+
+- name: Restart systemd-networkd.service
+  become: yes
+  systemd:
+    name: systemd-networkd.service
+    state: restarted
+    enabled: yes
+  when: (config_file.changed) or (config_file_copy.changed)

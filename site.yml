@@ -2,7 +2,7 @@
   roles:
   - hostname
   - timezone
-  - netplan
+  - networking
   - mdns
   - users
   - sudo
