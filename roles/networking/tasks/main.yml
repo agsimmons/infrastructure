@@ -44,10 +44,8 @@
     state: started
     enabled: yes
 
-- name: Restart systemd-networkd.service
+- name: Reload networkctl
   become: yes
-  systemd:
-    name: systemd-networkd.service
-    state: restarted
-    enabled: yes
+  command:
+    cmd: networkctl reload
   when: (config_file.changed) or (config_file_copy.changed)
