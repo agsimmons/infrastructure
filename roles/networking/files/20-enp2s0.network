@@ -3,4 +3,3 @@ Name=enp2s0
 
 [Network]
 DHCP=ipv4
-IPv6LinkLocalAddressGenerationMode=stable-privacy
