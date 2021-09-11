@@ -1,0 +1,13 @@
+- name: Reduce GRUB timeout
+  become: yes
+  replace:
+    path: /etc/default/grub
+    regexp: GRUB_TIMEOUT=0
+    replace: GRUB_TIMEOUT=3
+  register: config_file
+
+- name: Run update-grub
+  become: yes
+  command:
+    cmd: update-grub
+  when: config_file.changed
