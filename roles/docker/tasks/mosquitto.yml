@@ -23,6 +23,7 @@
     dest: /opt/mosquitto/docker-compose.yml
     mode: "{{ docker_compose_file_mask }}"
     owner: "{{ docker_user.name }}"
+    group: "{{ docker_user.name }}"
     validate: docker-compose -f %s config
   register: compose_file
 
