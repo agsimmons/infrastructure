@@ -1,0 +1,40 @@
+- name: Enable multiverse
+  become: yes
+  apt_repository:
+    repo: deb http://us.archive.ubuntu.com/ubuntu focal multiverse
+    state: present
+  register: multiverse
+
+- name: Enable i386 architecture
+  become: yes
+  command: dpkg --add-architecture i386
+  when: multiverse.changed
+  register: i386
+
+- name: Update apt cache
+  become: yes
+  apt:
+    update_cache: yes
+  when: multiverse.changed or i386.changed
+
+- name: Create steam user
+  become: yes
+  user:
+    name: steam
+    state: present
+    shell: /usr/bin/bash
+    create_home: yes
+
+
+- name: Install lib32gcc1
+  become: yes
+  apt:
+    name: lib32gcc1
+    state: present
+
+# TODO: Figure out how to accept the license agreement
+# - name: Install steamcmd
+#   become: yes
+#   apt:
+#     name: steamcmd
+#     state: present
