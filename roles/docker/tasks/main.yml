@@ -36,22 +36,22 @@
     system: yes
 
 - name: Install Nginx Proxy Manager
-  include: nginx-proxy-manager.yml
+  include_tasks: nginx-proxy-manager.yml
 
 - name: Install syncthing
-  include: syncthing.yml
+  include_tasks: syncthing.yml
 
 - name: Install mosquitto
-  include: mosquitto.yml
+  include_tasks: mosquitto.yml
 
 - name: Install Home Assistant
-  include: home-assistant.yml
+  include_tasks: home-assistant.yml
 
 - name: Install Unifi Controller
-  include: unifi-controller.yml
+  include_tasks: unifi-controller.yml
 
 - name: Install Nextcloud
-  include: nextcloud.yml
+  include_tasks: nextcloud.yml
 
 - name: Install Gitea
-  include: gitea.yml
+  include_tasks: gitea.yml
