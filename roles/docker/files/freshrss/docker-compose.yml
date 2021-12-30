@@ -1,0 +1,36 @@
+version: "3.5"
+services:
+  freshrss:
+    image: linuxserver/freshrss:latest
+    container_name: freshrss
+    restart: unless-stopped
+    environment:
+      - PUID={{ docker_user.id }}
+      - PGID={{ docker_user.gid }}
+      - TZ=America/New_York
+    volumes:
+      - /opt/freshrss/config:/config
+    networks:
+      - default
+      - freshrss
+    depends_on:
+      - db
+
+  db:
+    image: postgres:12
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=freshrss
+      - POSTGRES_PASSWORD=freshrss
+      - POSTGRES_DB=freshrss
+    volumes:
+      - /opt/freshrss/db_data:/var/lib/postgresql/data
+    networks:
+      - freshrss
+
+networks:
+  default:
+    name: nginx-proxy-manager
+    external: true
+  freshrss:
+    name: freshrss
